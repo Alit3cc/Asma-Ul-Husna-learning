@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asma Ul Husna — Learn the 99 Names of Allah ﷻ</title>
+  <meta name="description" content="Learn the 99 beautiful names of Allah ﷻ with correct Arabic diacriticals, transliteration, and meanings in English, German, and Turkish." />
+  <meta name="theme-color" content="#06080f" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Asma Ul Husna — Learn the 99 Names of Allah ﷻ" />
+  <meta property="og:description" content="Interactive learning app for the 99 Names of Allah with English, German, and Turkish translations." />
+  <meta property="og:type" content="website" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══════════ NAVIGATION ═══════════ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <span id="nav-logo" class="nav-logo" role="button" tabindex="0" aria-label="Go to home">
+      Asma Ul Husna
+    </span>
+
+    <div class="nav-stats" aria-label="Learning statistics">
+      <div class="nav-stat" title="Names memorised">
+        <span class="icon">📖</span>
+        <span class="val" id="nav-learned">0</span><span>/99</span>
+      </div>
+      <div class="nav-stat" title="Session streak">
+        <span class="icon">🔥</span>
+        <span class="val" id="nav-streak">0</span>
+      </div>
+      <div class="nav-stat" title="Total XP">
+        <span class="icon">⭐</span>
+        <span class="val" id="nav-xp">0</span>
+      </div>
+    </div>
+
+    <div class="nav-lang-selector" role="group" aria-label="Select language">
+      <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+      <button class="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
+      <button class="lang-btn" data-lang="tr" aria-label="Türkçe">TR</button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HOME SCREEN ═══════════ -->
+  <section id="home" class="screen" role="main" aria-label="Home">
+
+    <div class="home-hero">
+      <div class="home-bismillah" lang="ar" aria-label="Bismillah ir-Rahman ir-Rahim">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+      </div>
+
+      <h1 class="home-title">Asma Ul Husna</h1>
+      <p class="home-subtitle">The 99 Beautiful Names of Allah ﷻ</p>
+
+      <div class="home-divider" role="separator"></div>
+
+      <!-- Progress -->
+      <div class="progress-bar-wrapper" role="progressbar" aria-label="Learning progress">
+        <div class="progress-label">
+          <span id="progress-count">0 / 99</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Cards -->
+    <div class="modes-grid" role="list" aria-label="Learning modes">
+      <div class="mode-card" id="mode-flashcard" role="listitem button" tabindex="0" aria-label="Flashcard mode">
+        <span class="mode-icon" aria-hidden="true">🃏</span>
+        <div class="mode-title">Flashcards</div>
+        <div class="mode-desc">Study names one by one — flip to reveal the meaning.</div>
+      </div>
+      <div class="mode-card" id="mode-quiz" role="listitem button" tabindex="0" aria-label="Quiz mode">
+        <span class="mode-icon" aria-hidden="true">✏️</span>
+        <div class="mode-title">Quiz</div>
+        <div class="mode-desc">See the Arabic — choose the correct meaning.</div>
+      </div>
+      <div class="mode-card" id="mode-match" role="listitem button" tabindex="0" aria-label="Matching game">
+        <span class="mode-icon" aria-hidden="true">🔗</span>
+        <div class="mode-title">Match</div>
+        <div class="mode-desc">Pair Arabic names with their translations.</div>
+      </div>
+      <div class="mode-card" id="mode-reverse" role="listitem button" tabindex="0" aria-label="Reverse quiz mode">
+        <span class="mode-icon" aria-hidden="true">🔄</span>
+        <div class="mode-title">Reverse Quiz</div>
+        <div class="mode-desc">Read the meaning — identify the Arabic name.</div>
+      </div>
+    </div>
+
+    <!-- Browse All Names -->
+    <div class="section-header">
+      <p class="section-title" aria-label="Browse all 99 names">Browse All Names — Click to explore</p>
+    </div>
+
+    <div class="names-grid" id="names-grid" role="list" aria-label="All 99 Names of Allah">
+      <!-- Populated by JS -->
+    </div>
+
+  </section>
+
+  <!-- ═══════════ FLASHCARD SCREEN ═══════════ -->
+  <section id="flashcard-screen" class="screen" aria-label="Flashcard study mode">
+    <div class="flashcard-screen">
+
+      <div class="session-header">
+        <div>
+          <div class="session-title">Flashcards</div>
+          <div class="session-progress">
+            <div class="session-dots" id="fc-dots" aria-hidden="true"></div>
+            <span style="font-size:0.75rem;color:var(--text-muted)" id="fc-counter">1 / 10</span>
+          </div>
+        </div>
+        <button class="btn-back" aria-label="Return to home">← Back</button>
+      </div>
+
+      <div class="flashcard-container" role="button" aria-label="Flashcard — click to reveal">
+        <div class="flashcard" id="flashcard" aria-live="polite">
+
+          <!-- Front -->
+          <div class="card-face card-front" aria-label="Arabic name">
+            <div class="card-number" id="fc-number" aria-label="Name number"></div>
+            <div class="card-arabic" id="fc-arabic" lang="ar" dir="rtl"></div>
+            <div class="card-transliteration" id="fc-translit"></div>
+            <div class="card-hint">Click or press Space to reveal</div>
+          </div>
+
+          <!-- Back -->
+          <div class="card-face card-back" aria-label="Name meaning">
+            <div class="card-arabic-small" id="fc-arabic-back" lang="ar" dir="rtl" aria-hidden="true"></div>
+            <div class="card-meaning" id="fc-meaning"></div>
+            <div class="card-desc" id="fc-desc"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="btn-reveal" id="fc-reveal-btn" aria-label="Reveal meaning">
+        Reveal Meaning
+      </button>
+
+      <div class="flashcard-actions" id="fc-actions" style="display:none;" role="group" aria-label="Did you know this?">
+        <button class="btn-action btn-review" id="fc-review" aria-label="Mark for review">
+          🔁 Review Again
+        </button>
+        <button class="btn-action btn-knew" id="fc-knew" aria-label="Mark as memorised">
+          ✓ I Knew It
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ QUIZ SCREEN ═══════════ -->
+  <section id="quiz-screen" class="screen" aria-label="Quiz mode">
+    <div class="quiz-screen">
+
+      <div class="session-header">
+        <div>
+          <div class="session-title">Quiz</div>
+          <div class="session-progress">
+            <div class="session-dots" id="quiz-dots" aria-hidden="true"></div>
+            <span style="font-size:0.75rem;color:var(--text-muted)" id="quiz-counter">1 / 10</span>
+          </div>
+        </div>
+        <button class="btn-back" aria-label="Return to home">← Back</button>
+      </div>
+
+      <div class="quiz-prompt" role="region" aria-label="Question">
+        <div class="quiz-arabic"  id="quiz-arabic"  lang="ar" dir="rtl" aria-live="polite"></div>
+        <div class="quiz-transliteration" id="quiz-translit"></div>
+      </div>
+
+      <div class="quiz-options" id="quiz-options" role="group" aria-label="Answer options">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="quiz-feedback" id="quiz-feedback" aria-live="assertive"></div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ MATCHING GAME ═══════════ -->
+  <section id="match-screen" class="screen" aria-label="Matching game">
+    <div class="match-screen">
+
+      <div class="session-header">
+        <div>
+          <div class="session-title">Match the Names</div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">
+            Moves: <strong id="match-moves" style="color:var(--gold)">0</strong>
+          </p>
+        </div>
+        <button class="btn-back" aria-label="Return to home">← Back</button>
+      </div>
+
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;text-align:center">
+        Pair each Arabic name with its correct meaning
+      </p>
+
+      <div class="match-grid" id="match-grid" role="list" aria-label="Matching cards">
+        <!-- Populated by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ COMPLETE SCREEN ═══════════ -->
+  <section id="complete-screen" class="screen" aria-label="Session complete">
+    <div class="complete-screen">
+
+      <span class="complete-icon" aria-hidden="true">🌙</span>
+      <h2 class="complete-title">Session Complete</h2>
+      <p class="complete-subtitle" id="complete-message">الْحَمْدُ لِلَّهِ</p>
+
+      <div class="complete-stats" role="group" aria-label="Session results">
+        <div class="complete-stat">
+          <span class="complete-stat-val" id="complete-correct">0</span>
+          <span class="complete-stat-label">Correct</span>
+        </div>
+        <div class="complete-stat">
+          <span class="complete-stat-val">/</span>
+          <span class="complete-stat-label">&nbsp;</span>
+        </div>
+        <div class="complete-stat">
+          <span class="complete-stat-val" id="complete-total">10</span>
+          <span class="complete-stat-label">Total</span>
+        </div>
+        <div class="complete-stat">
+          <span class="complete-stat-val" id="complete-xp">0</span>
+          <span class="complete-stat-label">Total XP</span>
+        </div>
+        <div class="complete-stat">
+          <span class="complete-stat-val" id="complete-learned">0</span>
+          <span class="complete-stat-label">Memorised</span>
+        </div>
+      </div>
+
+      <div class="ornament" aria-hidden="true">❈ ✦ ❈</div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-primary" id="btn-again">Practice Again</button>
+        <button class="btn-secondary" id="btn-home">Home</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ NAME DETAIL MODAL ═══════════ -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Name details">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div class="modal-number" id="modal-number"></div>
+      <div class="modal-arabic" id="modal-arabic" lang="ar" dir="rtl"></div>
+      <div class="modal-transliteration" id="modal-transliteration"></div>
+      <div class="modal-meanings" id="modal-meanings"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</div><!-- #app -->
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
