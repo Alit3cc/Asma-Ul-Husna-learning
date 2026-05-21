@@ -1,0 +1,6 @@
+{
+  "name": "Asma Ul-Husna Web App",
+  "short_name": "AsmaUlHusna",
+  "start_url": "index.html",
+  "display": "standalone",
+}
